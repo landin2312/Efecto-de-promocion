@@ -12,8 +12,11 @@ data/raw/*
 data/interim/*
 data/processed/*
 !data/raw/.gitkeep
+!data/raw/base_ideal/
 !data/raw/base_ideal/.gitkeep
+!data/raw/bases_fuente/
 !data/raw/bases_fuente/.gitkeep
+!data/raw/promociones/
 !data/raw/promociones/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep
@@ -28,4 +31,3 @@ reports/*
 # OS
 .DS_Store
 Thumbs.db
-
