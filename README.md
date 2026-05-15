@@ -15,7 +15,8 @@ fechas de promocion manuales si la base no las trae, y reciba un dashboard con:
 ## Sitio web
 
 La app esta en `docs/index.html` para poder publicarse con GitHub Pages.
-Incluye una base de prueba en `docs/sample_promociones.csv`.
+Incluye bases de prueba en `docs/sample_promociones.csv` y
+`docs/sample_tienda_deportiva.csv`.
 
 Para verla localmente:
 

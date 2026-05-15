@@ -1,0 +1,61 @@
+fecha,sku,producto_nombre,categoria,tienda,cantidad_vendida,precio_final,costo_unitario,promocion,campana
+2026-02-01,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,7,3499,2050,no,
+2026-02-02,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,8,3499,2050,no,
+2026-02-03,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,6,3499,2050,no,
+2026-02-04,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,9,3499,2050,no,
+2026-02-05,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,8,3499,2050,no,
+2026-02-06,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,7,3499,2050,no,
+2026-02-07,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,10,3499,2050,no,
+2026-02-08,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,19,2799,2050,si,Hot Sale deportivo
+2026-02-09,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,23,2799,2050,si,Hot Sale deportivo
+2026-02-10,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,21,2799,2050,si,Hot Sale deportivo
+2026-02-11,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,18,2799,2050,si,Hot Sale deportivo
+2026-02-12,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,22,2799,2050,si,Hot Sale deportivo
+2026-02-13,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,11,3499,2050,no,
+2026-02-14,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,9,3499,2050,no,
+2026-02-15,AD-RUN-001,Tenis running Ultraboost,Calzado,Sucursal Norte,10,3499,2050,no,
+2026-02-01,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,14,1899,890,no,
+2026-02-02,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,16,1899,890,no,
+2026-02-03,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,15,1899,890,no,
+2026-02-04,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,17,1899,890,no,
+2026-02-05,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,18,1899,890,no,
+2026-02-06,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,19,1899,890,no,
+2026-02-07,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,21,1899,890,no,
+2026-02-08,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,26,1614,890,si,Hot Sale deportivo
+2026-02-09,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,31,1614,890,si,Hot Sale deportivo
+2026-02-10,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,29,1614,890,si,Hot Sale deportivo
+2026-02-11,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,33,1614,890,si,Hot Sale deportivo
+2026-02-12,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,30,1614,890,si,Hot Sale deportivo
+2026-02-13,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,19,1899,890,no,
+2026-02-14,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,22,1899,890,no,
+2026-02-15,AD-JER-014,Jersey local temporada 2026,Ropa,Sucursal Norte,20,1899,890,no,
+2026-02-01,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,11,999,520,no,
+2026-02-02,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,12,999,520,no,
+2026-02-03,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,10,999,520,no,
+2026-02-04,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,13,999,520,no,
+2026-02-05,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,12,999,520,no,
+2026-02-06,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,14,999,520,no,
+2026-02-07,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,13,999,520,no,
+2026-02-08,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,19,799,520,si,Hot Sale deportivo
+2026-02-09,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,25,799,520,si,Hot Sale deportivo
+2026-02-10,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,23,799,520,si,Hot Sale deportivo
+2026-02-11,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,21,799,520,si,Hot Sale deportivo
+2026-02-12,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,24,799,520,si,Hot Sale deportivo
+2026-02-13,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,14,999,520,no,
+2026-02-14,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,16,999,520,no,
+2026-02-15,AD-BAG-022,Mochila training 35L,Accesorios,Sucursal Norte,15,999,520,no,
+2026-02-01,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,8,749,360,no,
+2026-02-02,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,7,749,360,no,
+2026-02-08,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,14,599,360,si,Hot Sale deportivo
+2026-02-09,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,15,599,360,si,Hot Sale deportivo
+2026-02-10,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,13,599,360,si,Hot Sale deportivo
+2026-02-13,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,8,749,360,no,
+2026-02-14,AD-SHO-110,Short entrenamiento,Ropa,Sucursal Norte,9,749,360,no,
+2026-02-01,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,20,349,155,no,
+2026-02-02,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,21,349,155,no,
+2026-02-08,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,32,299,155,si,Hot Sale deportivo
+2026-02-09,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,36,299,155,si,Hot Sale deportivo
+2026-02-10,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,34,299,155,si,Hot Sale deportivo
+2026-02-13,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,22,349,155,no,
+2026-02-14,AD-BOT-075,Botella deportiva 750ml,Accesorios,Sucursal Norte,24,349,155,no,
+2026-02-15,AD-CAP-040,Gorra deportiva ajustable,Accesorios,Sucursal Norte,6,449,510,no,
