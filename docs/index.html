@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Efecto de promociones</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Consultoria analitica</p>
+        <h1>Efecto de promociones</h1>
+      </div>
+      <a class="repo-link" href="../README.md">README</a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <h2>Instrucciones para usar la pagina</h2>
+          <p>
+            Sube un archivo CSV o Excel con ventas historicas por producto y fecha. La herramienta
+            analizara los 3 productos mas importantes por ingresos, comparara periodos con y sin
+            promocion, normalizara ventas por dia y generara graficas, alertas e insights.
+          </p>
+        </div>
+        <div class="requirements">
+          <h3>Columnas recomendadas</h3>
+          <ul>
+            <li><strong>fecha</strong>: fecha de venta o semana.</li>
+            <li><strong>sku</strong> o <strong>producto_id</strong>: identificador del producto.</li>
+            <li><strong>producto_nombre</strong>: nombre del producto, opcional.</li>
+            <li><strong>unidades</strong> o <strong>cantidad_vendida</strong>: unidades vendidas.</li>
+            <li><strong>precio</strong> o <strong>precio_final</strong>: precio vigente en esa fecha.</li>
+            <li><strong>costo</strong>: costo unitario, recomendado para evaluar utilidad.</li>
+            <li><strong>promocion</strong>: si existe, valores como si/no, 1/0, true/false.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="panel upload-panel">
+          <h2>Datos de entrada</h2>
+          <label class="upload-box" for="fileInput">
+            <span>Upload</span>
+            <small>CSV, XLSX o XLS</small>
+          </label>
+          <input id="fileInput" type="file" accept=".csv,.xlsx,.xls" />
+
+          <div class="manual-promos">
+            <div class="section-title">
+              <h3>Promociones manuales</h3>
+              <button id="addPromoBtn" type="button">Agregar promocion</button>
+            </div>
+            <p>
+              Usa esta seccion si la base no trae una columna de promociones. Puedes aplicar la
+              promocion a todos los productos o escribir un SKU especifico.
+            </p>
+            <div id="promoRows" class="promo-rows"></div>
+          </div>
+
+          <div class="controls">
+            <label>
+              Normalizacion
+              <select id="periodSelect">
+                <option value="day">Por dia</option>
+                <option value="week">Por semana</option>
+              </select>
+            </label>
+            <button id="runBtn" type="button" disabled>Procesar dashboard</button>
+          </div>
+        </aside>
+
+        <section class="panel preview-panel">
+          <div class="section-title">
+            <h2>Vista previa y diagnostico</h2>
+            <span id="fileStatus">Sin archivo cargado</span>
+          </div>
+          <div class="table-wrap">
+            <table id="previewTable">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="errorBox" class="diagnostics empty">
+            Carga una base para revisar errores, inconsistencias y riesgos del estudio.
+          </div>
+        </section>
+      </section>
+
+      <section id="dashboard" class="dashboard hidden">
+        <div class="dashboard-head">
+          <div>
+            <p class="eyebrow">Resultado ejecutivo</p>
+            <h2>Dashboard de promociones</h2>
+          </div>
+          <div id="summaryMetrics" class="metric-grid"></div>
+        </div>
+
+        <div class="charts">
+          <div class="chart-panel">
+            <h3>Linea de tiempo: unidades normalizadas</h3>
+            <canvas id="unitsChart"></canvas>
+          </div>
+          <div class="chart-panel">
+            <h3>Linea de tiempo: ingresos normalizados</h3>
+            <canvas id="revenueChart"></canvas>
+          </div>
+          <div class="chart-panel">
+            <h3>Linea de tiempo: utilidad normalizada</h3>
+            <canvas id="profitChart"></canvas>
+          </div>
+          <div class="chart-panel">
+            <h3>Efecto promedio de la promocion</h3>
+            <canvas id="upliftChart"></canvas>
+          </div>
+        </div>
+
+        <div class="consulting-grid">
+          <article class="panel">
+            <h3>Conclusiones positivas</h3>
+            <ul id="positiveFindings"></ul>
+          </article>
+          <article class="panel">
+            <h3>Conclusiones negativas y correcciones</h3>
+            <ul id="negativeFindings"></ul>
+          </article>
+          <article class="panel">
+            <h3>Insights importantes</h3>
+            <ul id="insightFindings"></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

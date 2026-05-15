@@ -1,0 +1,23 @@
+fecha,sku,producto_nombre,cantidad_vendida,precio_final,costo_unitario,promocion
+2026-01-01,A001,Cafe premium 500g,18,120,70,no
+2026-01-02,A001,Cafe premium 500g,20,120,70,no
+2026-01-03,A001,Cafe premium 500g,21,120,70,no
+2026-01-04,A001,Cafe premium 500g,36,96,70,si
+2026-01-05,A001,Cafe premium 500g,42,96,70,si
+2026-01-06,A001,Cafe premium 500g,34,96,70,si
+2026-01-07,A001,Cafe premium 500g,22,120,70,no
+2026-01-01,B014,Detergente liquido 2L,15,88,52,no
+2026-01-02,B014,Detergente liquido 2L,16,88,52,no
+2026-01-03,B014,Detergente liquido 2L,15,88,52,no
+2026-01-04,B014,Detergente liquido 2L,24,76,52,si
+2026-01-05,B014,Detergente liquido 2L,28,76,52,si
+2026-01-06,B014,Detergente liquido 2L,25,76,52,si
+2026-01-07,B014,Detergente liquido 2L,17,88,52,no
+2026-01-01,C220,Yogurt natural 1kg,55,42,31,no
+2026-01-02,C220,Yogurt natural 1kg,58,42,31,no
+2026-01-03,C220,Yogurt natural 1kg,57,42,31,no
+2026-01-04,C220,Yogurt natural 1kg,80,34,31,si
+2026-01-05,C220,Yogurt natural 1kg,84,34,31,si
+2026-01-06,C220,Yogurt natural 1kg,82,34,31,si
+2026-01-07,C220,Yogurt natural 1kg,59,42,31,no
+2026-01-01,D410,Aceite vegetal 900ml,10,62,65,no
