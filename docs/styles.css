@@ -368,6 +368,10 @@ th {
   margin-top: 14px;
 }
 
+.llm-panel {
+  grid-column: 1 / -1;
+}
+
 .positive {
   color: var(--good);
 }

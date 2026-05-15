@@ -3,12 +3,14 @@ const runBtn = document.querySelector("#runBtn");
 const addPromoBtn = document.querySelector("#addPromoBtn");
 const promoRows = document.querySelector("#promoRows");
 const periodSelect = document.querySelector("#periodSelect");
+const skuSelect = document.querySelector("#skuSelect");
 const fileStatus = document.querySelector("#fileStatus");
 const errorBox = document.querySelector("#errorBox");
 const dashboard = document.querySelector("#dashboard");
 const summaryMetrics = document.querySelector("#summaryMetrics");
 const previewHead = document.querySelector("#previewTable thead");
 const previewBody = document.querySelector("#previewTable tbody");
+const llmStatus = document.querySelector("#llmStatus");
 
 let rawRows = [];
 let charts = [];
@@ -40,6 +42,7 @@ async function handleFile(event) {
     rawRows = await readFile(file);
     rawRows = rawRows.filter((row) => Object.values(row).some((value) => String(value ?? "").trim()));
     renderPreview(rawRows);
+    populateSkuSelect(rawRows);
     runBtn.disabled = rawRows.length === 0;
     fileStatus.textContent = `${rawRows.length.toLocaleString("es-MX")} filas cargadas`;
     errorBox.className = "diagnostics empty";
@@ -100,10 +103,31 @@ function processDashboard() {
 
   const manualPromos = readManualPromos();
   const normalized = normalizeRows(mapped.rows, mapped.columns, manualPromos);
-  const analysis = analyze(normalized.rows, periodSelect.value);
+  const analysis = analyze(normalized.rows, periodSelect.value, skuSelect.value);
 
   renderDiagnostics(normalized.errors, normalized.warnings);
   renderDashboard(analysis, normalized.errors, normalized.warnings);
+}
+
+function populateSkuSelect(rows) {
+  const mapped = mapColumns(rows);
+  skuSelect.innerHTML = `<option value="__top3__">Top 3 por ingresos</option>`;
+  if (!mapped.columns.sku) return;
+
+  const products = [...groupBy(rows, (row) => String(row[mapped.columns.sku] ?? "").trim()).entries()]
+    .filter(([sku]) => sku)
+    .map(([sku, skuRows]) => ({
+      sku,
+      name: mapped.columns.name ? String(skuRows[0][mapped.columns.name] || sku).trim() : sku,
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name, "es"));
+
+  products.forEach((product) => {
+    const option = document.createElement("option");
+    option.value = product.sku;
+    option.textContent = `${product.name} (${product.sku})`;
+    skuSelect.appendChild(option);
+  });
 }
 
 function mapColumns(rows) {
@@ -217,15 +241,19 @@ function normalizeRows(rows, columns, manualPromos) {
   return { rows: normalized, errors: unique(errors).slice(0, 30), warnings: unique(warnings).slice(0, 30) };
 }
 
-function analyze(rows, period) {
-  const topSkus = [...groupBy(rows, (row) => row.sku).entries()]
+function analyze(rows, period, selectedSku = "__top3__") {
+  const rankedSkus = [...groupBy(rows, (row) => row.sku).entries()]
     .map(([sku, skuRows]) => ({
       sku,
       name: skuRows[0].name,
       revenue: sum(skuRows, "revenue"),
     }))
-    .sort((a, b) => b.revenue - a.revenue)
-    .slice(0, 3);
+    .sort((a, b) => b.revenue - a.revenue);
+
+  const topSkus =
+    selectedSku === "__top3__"
+      ? rankedSkus.slice(0, 3)
+      : rankedSkus.filter((product) => product.sku === selectedSku).slice(0, 1);
 
   const selectedRows = rows.filter((row) => topSkus.some((product) => product.sku === row.sku));
   const grouped = new Map();
@@ -278,7 +306,7 @@ function analyze(rows, period) {
     };
   });
 
-  return { topSkus, timeline, effects, period };
+  return { topSkus, timeline, effects, period, selectedSku };
 }
 
 function renderDashboard(analysis, errors, warnings) {
@@ -305,6 +333,7 @@ function renderDashboard(analysis, errors, warnings) {
   renderLineChart("profitChart", analysis, "profit");
   renderUpliftChart(analysis);
   renderFindings(analysis, errors, warnings, totalProfit);
+  requestLlmConclusions(analysis, errors, warnings);
 }
 
 function renderLineChart(canvasId, analysis, metric) {
@@ -407,13 +436,77 @@ function renderFindings(analysis, errors, warnings, totalProfit) {
   if (totalProfit <= 0) negatives.push("La utilidad total del top 3 es menor o igual a cero. Revisa costos, precios y descuentos antes de recomendar mas campanas.");
   if (!positives.length) positives.push("No se encontro evidencia fuerte de mejora. Esto tambien es una conclusion valida para evitar promociones poco rentables.");
 
-  insights.push("El analisis esta limitado a los 3 productos mas importantes por ingresos, como pide la entrega.");
+  if (analysis.selectedSku === "__top3__") {
+    insights.push("El analisis esta limitado a los 3 productos mas importantes por ingresos, como pide la entrega.");
+  } else {
+    insights.push("El analisis se enfoca en el SKU seleccionado por el usuario.");
+  }
   insights.push("Los valores se comparan por periodo normalizado para no mezclar dias o semanas con y sin promocion.");
   insights.push("Si la base no trae promociones, se usan proxies por descuento de precio desde 10% y fechas manuales capturadas por el usuario.");
 
   fillList("positiveFindings", positives);
   fillList("negativeFindings", negatives);
   fillList("insightFindings", insights);
+}
+
+async function requestLlmConclusions(analysis, errors, warnings) {
+  llmStatus.textContent = "Generando";
+  fillList("llmFindings", ["Solicitando conclusiones al modelo..."]);
+
+  const payload = {
+    period: analysis.period === "week" ? "semana" : "dia",
+    selectedSku: analysis.selectedSku,
+    products: analysis.effects.map((item) => ({
+      sku: item.sku,
+      name: item.name,
+      promoPeriods: item.promoPeriods,
+      basePeriods: item.basePeriods,
+      unitsUplift: round(item.unitsUplift * 100),
+      revenueUplift: round(item.revenueUplift * 100),
+      profitUplift: round(item.profitUplift * 100),
+      avgPromoUnits: round(item.avgPromoUnits),
+      avgBaseUnits: round(item.avgBaseUnits),
+      avgPromoRevenue: round(item.avgPromoRevenue),
+      avgBaseRevenue: round(item.avgBaseRevenue),
+      avgPromoProfit: round(item.avgPromoProfit),
+      avgBaseProfit: round(item.avgBaseProfit),
+    })),
+    warnings: warnings.slice(0, 10),
+    errors: errors.slice(0, 10),
+  };
+
+  try {
+    const response = await fetch("./api/conclusiones", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error("LLM no disponible en este despliegue.");
+    const result = await response.json();
+    fillList("llmFindings", result.conclusions || []);
+    llmStatus.textContent = result.model ? `Modelo: ${result.model}` : "Listo";
+  } catch (error) {
+    llmStatus.textContent = "Fallback local";
+    fillList("llmFindings", buildLocalLlmFallback(analysis, warnings));
+  }
+}
+
+function buildLocalLlmFallback(analysis, warnings) {
+  const conclusions = analysis.effects.map((item) => {
+    const revenueText = Number.isFinite(item.revenueUplift)
+      ? `ingresos ${percent(item.revenueUplift)}`
+      : "ingresos sin base comparable";
+    const profitText = Number.isFinite(item.profitUplift)
+      ? `utilidad ${percent(item.profitUplift)}`
+      : "utilidad sin base comparable";
+    return `${item.name}: la promocion muestra ${revenueText} y ${profitText}. Recomendacion: mantener solo si el margen no cae y repetir la prueba con mas semanas.`;
+  });
+
+  if (warnings.length) {
+    conclusions.push("Antes de tomar decisiones finales, corrige las advertencias de calidad de datos porque pueden sesgar el efecto observado.");
+  }
+  conclusions.push("Nota: este texto es fallback local. En Railway, con OPENAI_API_KEY configurada, se genera con un LLM pequeño.");
+  return conclusions;
 }
 
 function renderDiagnostics(errors, warnings) {

@@ -10,7 +10,8 @@ fechas de promocion manuales si la base no las trae, y reciba un dashboard con:
 - comparativo entre periodos con promocion y sin promocion;
 - revision automatica de errores de datos;
 - conclusiones positivas, negativas, correcciones e insights ejecutivos;
-- enfoque en los 3 productos mas importantes por ingresos, como pide la entrega.
+- selector para analizar un SKU especifico o los 3 productos mas importantes por ingresos;
+- conclusiones con LLM pequeno cuando se despliega en Railway con `OPENAI_API_KEY`.
 
 ## Sitio web
 
@@ -37,6 +38,47 @@ Para publicarla en GitHub:
 3. En `Build and deployment`, selecciona `Deploy from a branch`.
 4. Selecciona la rama principal y la carpeta `/docs`.
 5. GitHub dara un link publico para usar la consultoria online.
+
+## Railway con LLM
+
+El proyecto tambien incluye un servidor Node/Express (`server.js`) para desplegar
+en Railway. Este modo sirve la misma pagina y agrega el endpoint
+`/api/conclusiones`, que usa un LLM pequeno mediante la API de OpenAI para generar
+conclusiones ejecutivas.
+
+Variables de entorno necesarias en Railway:
+
+```text
+OPENAI_API_KEY=tu_api_key
+OPENAI_MODEL=gpt-4.1-mini
+```
+
+Instalacion y prueba local:
+
+```powershell
+npm install
+npm start
+```
+
+Despues abre:
+
+```text
+http://localhost:3000
+```
+
+Despliegue con Railway CLI:
+
+```powershell
+npm install -g @railway/cli
+railway login
+railway link
+railway variables --set "OPENAI_API_KEY=tu_api_key"
+railway variables --set "OPENAI_MODEL=gpt-4.1-mini"
+railway up
+```
+
+Si se conecta Railway al repo de GitHub, cada `git push` puede disparar un nuevo
+deploy automatico.
 
 ## Formato esperado de la base
 
@@ -92,7 +134,8 @@ El sitio sigue las instrucciones del profesor:
 - usa proxies de promocion cuando no hay columna explicita;
 - grafica las metricas en linea de tiempo;
 - resume el efecto de promociones en conclusiones;
-- analiza solo los 3 productos mas importantes por ingresos.
+- permite elegir un SKU o analizar automaticamente los 3 productos mas importantes;
+- usa un LLM pequeno para conclusiones cuando esta desplegado en Railway con API key.
 
 ## Donde poner los archivos
 

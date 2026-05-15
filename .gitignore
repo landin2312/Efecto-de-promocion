@@ -7,6 +7,11 @@ __pycache__/
 .venv/
 venv/
 
+# Node / Railway app
+node_modules/
+.env
+npm-debug.log*
+
 # Local data
 data/raw/*
 data/interim/*

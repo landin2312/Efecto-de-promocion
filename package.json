@@ -1,0 +1,17 @@
+{
+  "name": "efecto-de-promocion",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check docs/app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "openai": "^4.104.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
