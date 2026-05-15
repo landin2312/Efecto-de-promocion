@@ -148,7 +148,9 @@ function normalizeRows(rows, columns, manualPromos) {
       if (!Number.isFinite(units) || units < 0) errors.push(`Fila ${index + 2}: unidades invalidas.`);
       if (!Number.isFinite(price) || price <= 0) errors.push(`Fila ${index + 2}: precio invalido.`);
       if (Number.isFinite(cost) && cost > price) {
-        errors.push(`Fila ${index + 2}: costo (${cost}) mayor al precio (${price}) en ${sku}.`);
+        warnings.push(
+          `Fila ${index + 2}: costo (${cost}) mayor al precio (${price}) en ${sku}. Se mantiene en el analisis, pero esa venta destruye margen.`
+        );
       }
       if (Number.isFinite(revenue) && Number.isFinite(units) && units > 0) {
         const impliedPrice = revenue / units;
