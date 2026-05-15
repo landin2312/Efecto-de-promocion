@@ -328,6 +328,8 @@ function renderLineChart(canvasId, analysis, metric) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: false,
+        resizeDelay: 150,
         interaction: { mode: "index", intersect: false },
         plugins: { legend: { position: "bottom" } },
         scales: { y: { beginAtZero: true } },
@@ -363,6 +365,8 @@ function renderUpliftChart(analysis) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        animation: false,
+        resizeDelay: 150,
         plugins: { legend: { position: "bottom" } },
         scales: { y: { ticks: { callback: (value) => `${value}%` } } },
       },
